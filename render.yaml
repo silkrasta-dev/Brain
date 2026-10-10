@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: mogh-kamel-cloud
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn cloud_server:app --bind 0.0.0.0:$PORT --workers 1 --timeout 180
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+      - key: BRAIN_DB_PATH
+        value: brain.db
